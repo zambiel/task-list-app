@@ -5,7 +5,14 @@
                 <h1>Tareas pendientes</h1>
 
                 @for(task of taskListPending; track task; let index = $index) {
-                  <app-task [task]="task" [index]="index"></app-task>
+                  <app-task
+                  [task]="task"
+                  [index]="index"
+                  (remove)="removeTask($event)"
+                  (complete)="completeTask($event)"
+                  >
+
+                  </app-task>
                 } @empty {
                     <span class="d-block">¡Felicidades! No tienes tareas pendientes</span>
                 }
@@ -37,11 +44,21 @@
             <div class="col-12">
                 <h1>Tareas completadas</h1>
 
-                @for(task of taskListCompleted; track task) {
-                  <app-task [task]="task"></app-task>
-
-                } @empty {
-                    <span>¡Felicidades! No tienes tareas pendientes</span>
+                <button class="btn btn-primary mt-2 mb-2" (click)="toggleShowCompleted()">
+                  @if(showCompleted) {
+                    <i class="bi bi-eye-slash me-1"></i>
+                    <span>Ocultar tareas completadas</span>
+                  } @else {
+                    <i class="bi bi-eye me-1"></i>
+                    <span>Mostrar tareas completadas</span>
+                  }
+                </button>
+                @if(showCompleted) {
+                  @for(task of taskListCompleted; track task) {
+                    <app-task [task]="task"></app-task>
+                  } @empty {
+                    <span class="d-block">No tienes tareas completadas</span>
+                  }
                 }
             </div>
         </div>

@@ -1,0 +1,49 @@
+<div class="row mt-2 mb-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <h1>Tareas pendientes</h1>
+
+                @for(task of taskListPending; track task; let index = $index) {
+                  <app-task [task]="task" [index]="index"></app-task>
+                } @empty {
+                    <span class="d-block">¡Felicidades! No tienes tareas pendientes</span>
+                }
+
+                @if(showInputTask) {
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" #taskInput>
+                        <button class="btn btn-primary" type="button" (click)="createTask(taskInput.value)">
+                            <i class="bi bi-plus"></i>
+                            <span>Añadir</span>
+                        </button>
+                      </div>
+                } @else {
+                    <button class="btn btn-primary mt-2 mb-2" (click)="showInputTextTask()">
+                        <i class="bi bi-plus"></i>
+                        <span>Añadir tarea</span>
+                    </button>
+                }
+
+                @if(errorInputTask) {
+                  <div class="alert alert-danger" role="alert">
+                    La tarea no puede estar vacía.
+                  </div>
+                }
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h1>Tareas completadas</h1>
+
+                @for(task of taskListCompleted; track task) {
+                  <app-task [task]="task"></app-task>
+
+                } @empty {
+                    <span>¡Felicidades! No tienes tareas pendientes</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
